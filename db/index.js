@@ -6,8 +6,8 @@ const { sequelize, Sequelize } = require('./db');
 User.hasMany(Group, { foreignKey: 'adminId' });
 Group.belongsTo(User, { foreignKey: 'adminId' });
 
-Member.hasOne(Group, { foreignKey: 'groupId' });
-Group.belongsTo(Member, { foreignKey: 'groupId' });
+Group.hasMany(Member, { foreignKey: 'groupId' });
+Member.belongsTo(Group, { foreignKey: 'groupId' });
 
 module.exports = {
   User,
