@@ -6,9 +6,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const cookieParser = require('cookie-parser');
 
-/* eslint-disable import/no-unresolved */
-// eslint-disable-next-line import/extensions
-const { User } = require('../db');
+const { User } = require('./db');
 
 const { JWT_SECRET } = process.env;
 
