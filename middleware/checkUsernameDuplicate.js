@@ -1,5 +1,3 @@
-/* eslint-disable import/no-unresolved */
-// eslint-disable-next-line import/extensions
 const { User } = require('../db');
 
 const checkDuplicateUsernameOrEmail = async (req, res, next) => {
