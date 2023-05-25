@@ -3,10 +3,10 @@ const seed = require('./seedFn');
 
 seed()
   .then(() => {
-    console.log('Seeding success.');
+    global.logger.info('Seeding success.');
   })
   .catch((err) => {
-    console.error(err);
+    global.logger.error(err);
   })
   .finally(() => {
     sequelize.close();

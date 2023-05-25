@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
 
 const { JWT_SECRET } = process.env;
 
@@ -12,18 +11,17 @@ const verifyToken = (req, res, next) => {
     });
   }
 
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+  jwt.verify(token, JWT_SECRET, (err, user) => {
     if (err) {
       return res.status(401).send({
         message: 'Unauthorized!',
       });
     }
-    res.cookie('userId', decoded.id);
+
+    req.user = user;
+
     next();
   });
 };
 
-const authJwt = {
-  verifyToken,
-};
-module.exports = authJwt;
+module.exports = verifyToken;

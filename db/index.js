@@ -1,3 +1,5 @@
+require('../src/utils/logger');
+
 const { User } = require('./User');
 const { Group } = require('./Group');
 const { Member } = require('./Member');

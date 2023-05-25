@@ -1,4 +1,4 @@
-const { User } = require('../db');
+const { User } = require('../../db');
 
 const checkDuplicateUsernameOrEmail = async (req, res, next) => {
   try {
@@ -8,6 +8,7 @@ const checkDuplicateUsernameOrEmail = async (req, res, next) => {
         email: req.body.email,
       },
     });
+
     if (user) {
       return res.status(400).send({
         message: 'Failed! Email is already in use!',
