@@ -7,9 +7,10 @@ const app = express();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3005 } = process.env;
+const { WEB_PORT = 3000 } = process.env;
 
-app.use(cors({ credentials: true, origin: `http://localhost:${PORT}` }));
+app.use(cors({ credentials: true, origin: `http://localhost:${WEB_PORT}` }));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
