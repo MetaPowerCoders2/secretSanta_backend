@@ -14,7 +14,7 @@ build/
 .DS_Store
 .parcel-cache
 haters
-.env
+.env*.*
 .vscode
 .cache
 

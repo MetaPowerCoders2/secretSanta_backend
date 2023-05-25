@@ -11,7 +11,6 @@ const Member = sequelize.define('member', {
   email: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true,
   },
   mobile: {
     type: Sequelize.STRING,

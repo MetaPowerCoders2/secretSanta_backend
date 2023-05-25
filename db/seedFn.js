@@ -1,24 +1,36 @@
 const bcrypt = require('bcryptjs');
 const { sequelize } = require('./db');
-const { User } = require('.');
-const { users } = require('./seedData');
+const { User, Group, Member } = require('.');
+const { users, groups, members } = require('./seedData');
 
 const seed = async () => {
   try {
     await sequelize.sync({ force: true }); // recreate db
-    const createdUsers = [];
 
-    for (let i = 0; i < users.length; i += 1) {
-      // eslint-disable-next-line no-await-in-loop
+    const createdUsers = [];
+    await Promise.all(users.map(async (user) => {
       createdUsers.push(await User.create({
-        email: users[i].email,
-        password: bcrypt.hashSync(users[i].password, 8),
-        name: users[i].name,
-        mobile: users[i].mobile,
+        email: user.email,
+        password: bcrypt.hashSync(user.password, 8),
+        name: user.name,
+        mobile: user.mobile,
       }));
-    }
+    }));
+
+    const createdGroups = [];
+    await Promise.all(groups.map(async (group) => {
+      const createdGroup = await Group.create(group);
+      await createdUsers[0].addGroup(createdGroup);
+      await createdGroup.createMember(users[0]);
+      createdGroups.push(createdGroup);
+    }));
+
+    await Promise.all(createdGroups.map(async (createdGroup) => {
+      const groupMembers = await Member.bulkCreate(members);
+      await createdGroup.addMembers(groupMembers);
+    }));
   } catch (error) {
-    console.error(error);
+    global.logger.error(error);
   }
 };
 
