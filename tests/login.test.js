@@ -1,9 +1,6 @@
 const request = require('supertest');
-var cookies = require('cookie-parser');
 const app = require('..');
-const { User } = require('../db');
 const seed = require('../db/seedFn');
-const { Op } = require('sequelize');
 
 describe('login endpoint', () => {
   beforeEach(async () => {
@@ -113,7 +110,7 @@ describe('login endpoint', () => {
         .get('/api/login/signout')
         .set('Cookie', signinResponse.headers['set-cookie']);
 
-      //expect(statusCode).toBe(200);
+      expect(statusCode).toBe(200);
       expect(body).toMatchObject({ message: "You've been signed out!" });
     });
   });
