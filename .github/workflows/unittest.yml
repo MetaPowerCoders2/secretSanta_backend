@@ -1,10 +1,11 @@
 name: 🤖 Unit tests
 
 on:
-  ush:
+  push:
     branches:
       - main
       - develop
+      - logintests
   pull_request:
     branches:
       - main
