@@ -1,7 +1,8 @@
 const bcrypt = require('bcryptjs');
 const { sequelize } = require('./db');
-const { User, Group, Member } = require('.');
+const { User, Group } = require('.');
 const { users, groups, members } = require('./seedData');
+const randomPairing = require('../src/utils/randomPairing');
 
 const seed = async () => {
   try {
@@ -17,17 +18,20 @@ const seed = async () => {
       }));
     }));
 
-    const createdGroups = [];
+    members.push({
+      name: users[0].name,
+      email: users[0].email,
+      mobile: users[0].mobile,
+    });
+
     await Promise.all(groups.map(async (group) => {
+      randomPairing(members);
+
       const createdGroup = await Group.create(group);
       await createdUsers[0].addGroup(createdGroup);
-      await createdGroup.createMember(users[0]);
-      createdGroups.push(createdGroup);
-    }));
-
-    await Promise.all(createdGroups.map(async (createdGroup) => {
-      const groupMembers = await Member.bulkCreate(members);
-      await createdGroup.addMembers(groupMembers);
+      await Promise.all(members.map(async (member) => {
+        await createdGroup.createMember(member);
+      }));
     }));
   } catch (error) {
     global.logger.error(error);
