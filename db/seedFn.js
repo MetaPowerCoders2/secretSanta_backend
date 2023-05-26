@@ -24,11 +24,9 @@ const seed = async () => {
       mobile: users[0].mobile,
     });
 
-    //const createdGroups = [];
     await Promise.all(groups.map(async (group) => {
       randomPairing(members);
 
-      console.log(members);
       const createdGroup = await Group.create(group);
       await createdUsers[0].addGroup(createdGroup);
       await Promise.all(members.map(async (member) => {
