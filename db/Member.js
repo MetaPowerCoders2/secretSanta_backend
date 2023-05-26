@@ -20,6 +20,9 @@ const Member = sequelize.define('member', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  giftTo: {
+    type: Sequelize.STRING,
+  },
 });
 
 module.exports = { Member };
