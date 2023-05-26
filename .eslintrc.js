@@ -10,6 +10,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
   },
+  plugins: ['jest'],
   rules: {
     'consistent-return': 'off',
     'import/no-extraneous-dependencies': 'off',

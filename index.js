@@ -19,8 +19,8 @@ app.use('/api/login', require('./src/routes/loginRoutes'));
 app.use('/api/user', require('./src/routes/userRoutes'));
 app.use('/api/group', require('./src/routes/groupRoutes'));
 
-app.listen(PORT, () => {
-  global.logger.info(`Walletpop are ready at http://localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//   global.logger.info(`Walletpop are ready at http://localhost:${PORT}`);
+// });
 
 module.exports = app;
