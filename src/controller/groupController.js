@@ -12,7 +12,9 @@ const groupController = {
           name, maxPrice, location, date, members,
         } = req.body;
 
-        randomPairing(members);
+        if (members.length > 1) {
+          randomPairing(members);
+        }
 
         const group = await Group.create({
           name,
@@ -64,9 +66,9 @@ const groupController = {
             await existingMember.destroy();
           }));
 
-          const pairs = randomPairing(members);
-
-          global.logger.info(pairs);
+          if (members.length > 1) {
+            randomPairing(members);
+          }
 
           await Promise.all(members.map(async (member) => {
             await updatedGroup.createMember(member);
@@ -119,6 +121,7 @@ const groupController = {
       const user = await findUser(req.user.id);
       if (user) {
         const { groupId } = req.params;
+        const { members } = req.body;
 
         const group = await Group.findOne({
           where: {
@@ -137,9 +140,24 @@ const groupController = {
 
         if (user.id === group.adminId) {
           const transporter = await createAccount();
-          const { members } = group;
+
+          const existingMembers = await group.getMembers();
+          await Promise.all(existingMembers.map(async (existingMember) => {
+            await existingMember.destroy();
+          }));
+
+          if (members.length > 1) {
+            randomPairing(members);
+          } else {
+            return res.status(403).send({ message: 'Enter at least 2 participants' });
+          }
+
           await Promise.all(members.map(async (member) => {
+            console.log(member);
+            await group.createMember(member);
+            console.log(group);
             const config = generateConfig(group, member);
+            console.log(config);
             await sendEmail(transporter, config);
           }));
 
