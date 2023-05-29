@@ -153,11 +153,8 @@ const groupController = {
           }
 
           await Promise.all(members.map(async (member) => {
-            console.log(member);
             await group.createMember(member);
-            console.log(group);
             const config = generateConfig(group, member);
-            console.log(config);
             await sendEmail(transporter, config);
           }));
 
