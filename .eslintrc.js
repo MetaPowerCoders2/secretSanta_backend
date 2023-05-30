@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     commonjs: true,
     es2021: true,
+    'jest/globals': true,
   },
   extends: 'airbnb-base',
   overrides: [
@@ -10,6 +11,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
   },
+  plugins: ['jest'],
   rules: {
     'consistent-return': 'off',
     'import/no-extraneous-dependencies': 'off',

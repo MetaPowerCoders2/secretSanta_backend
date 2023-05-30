@@ -33,7 +33,7 @@ const loginController = {
       });
 
       if (!user) {
-        return res.status(404).send({ message: 'User Not found.' });
+        return res.status(401).send({ message: 'Invalid user or password' });
       }
 
       const passwordIsValid = bcrypt.compareSync(
@@ -42,8 +42,8 @@ const loginController = {
       );
 
       if (!passwordIsValid) {
-        return res.status(404).send({
-          message: 'Invalid Password!',
+        return res.status(401).send({
+          message: 'Invalid user or password',
         });
       }
 
