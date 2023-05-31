@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 
 const { WEB_PORT = 3000 } = process.env;
 
-app.use(cors({ credentials: true, origin: `http://localhost:${WEB_PORT}` }));
+app.use(cors({ credentials: true, origin: [`http://localhost:${WEB_PORT}`, 'github.com'] }));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
