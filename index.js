@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 
 const { ORIGINS } = process.env;
 
-app.use(cors({ credentials: true, origin: ORIGINS.split(',') }));
+app.use(cors({ credentials: true, origin: true }));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
